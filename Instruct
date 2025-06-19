@@ -1,0 +1,31 @@
+
+
+JSON 
+
+website : { " URL1 " : [1,2,3]
+            " Headers " :
+            " product price" : [tag1][tag2] 
+
+
+website2 
+
+
+//python
+
+config1 = {
+
+    "website1" : {
+
+    }
+}
+
+config2 = {
+    
+}
+
+//json
+
+"Website" : {
+
+    
+}
