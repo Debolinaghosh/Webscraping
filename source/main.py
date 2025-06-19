@@ -105,7 +105,7 @@ def scrape_site(site, conf):
     return results
 
 def main():
-    for site, conf in SCRAPER_CONFIG.items():
+    for site, conf in SCRAPER_CONFIG["WEBSITES"].items():
         data = scrape_site(site, conf)
         df = pd.DataFrame(data)
         df.to_excel(f'../files/product_{site}.xlsx', index=False)
