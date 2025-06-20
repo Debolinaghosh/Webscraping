@@ -1,6 +1,7 @@
 SCRAPER_CONFIG = {
     "proxy": {"http": "http://proxy.jpmchase.net:8443", "https": "http://proxy.jpmchase.net:8443"},
     "WEBSITES": {
+
         "praxis": {
             "urls": [
                 'https://www.praxis.nl/verf-laminaat-decoratie/verf/lakken/flexa-lak-strak-de-lak-zijdeglans-cr%C3%A8me-wit-ral-9001-750ml/5377082',
@@ -75,6 +76,7 @@ SCRAPER_CONFIG = {
             }
 
         },
+
         "wickes": {
             "urls": [
                 'https://rapidload.increasingly.co/increasingly_bundles?irb/cHJvZHVjdF9pZHM9MTM3NDY4JmNhdGVnb3J5X2lkPSZhcGlfa2V5PXdLUzh4eiZjbGllbnRfaWQ9JnBhZ2VfdHlwZT1jYXRhbG9nX3Byb2R1Y3RfdmlldyZjbGllbnRfdmlzaXRvcl9pZD0wNWRkMWNlNzQ4NjBlOGYxMjZkZGQ5MmVkZmQ4YTQ3MzIwYTExMTM3YjgmZnI9MSZpc190Yz0xJm5vX29mX2J1bmRsZXM9MTA=',
@@ -124,7 +126,7 @@ SCRAPER_CONFIG = {
                 "headers": {
                     'accept': 'application/json, text/plain, */*',
                     'accept-language': 'en-US,en;q=0.9,hi;q=0.8',
-                    'authorization': 'Bearer GCvXM4Vckz9oAT907pwPtWuUCJtk',
+                    'authorization': 'Bearer IPWpZbUv0fGj8SAplgA6p62PQpfw',
                     'content-type': 'application/json',
                     'origin': 'https://www.toolstation.com',
                     'referer': 'https://www.toolstation.com/dulux-trade-high-gloss-paint/p21785?searchstr=sandtex+ultra+smooth',

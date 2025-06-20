@@ -61,10 +61,7 @@ def scrape_site(site, conf):
                     )
                     data = response.json()
                     product_name = extract_json_path(data, conf["api"]["product_path"])
-                    print(product_name)
                     price = extract_json_path(data, conf["api"]["price_path"])
-                    print(json.dumps(data, indent=2)) 
-                    print(price)
                     if not price:
                         price = extract_json_path(data, conf["api"].get("fallback_price_path", []))
 
@@ -75,7 +72,6 @@ def scrape_site(site, conf):
                         json=url["json_data"]
                     )
                     data = response.json()
-                    print(data)
                     product_name = extract_json_path(data, conf["api"]["product_path"])
                     price = extract_json_path(data, conf["api"]["price_path"])
 
@@ -102,7 +98,6 @@ def scrape_site(site, conf):
                 # Price extraction
                 if conf["price"]["type"] == "soup":
                     price = extract_from_soup(soup, conf["price"])
-                    print(price)
                     if "currency" in conf["price"]:
                         currency = extract_from_meta(soup, {"attrs": conf["price"]["currency"]})
                         if currency:
@@ -119,8 +114,7 @@ def scrape_site(site, conf):
                     price = extract_from_jsonld(soup, conf["price"]["json_path"])
                 else:
                     price = None
-            print(product_name)
-            print(price)
+
             results.append({"Product Name": product_name, "Price": price})
 
         except Exception as e:
@@ -129,11 +123,20 @@ def scrape_site(site, conf):
     return results
 
 def main():
+    all_dataframes = []
+    
     for site, conf in SCRAPER_CONFIG["WEBSITES"].items():
         data = scrape_site(site, conf)
         df = pd.DataFrame(data)
-        df.to_excel(f'files1/product_{site}.xlsx', index=False)
-        print(f"Done: {site}")
+        df["source_site"] = site  # Optional: track which site the data came from
+        all_dataframes.append(df)
+        print(f"Scraped: {site}")
+
+    combined_df = pd.concat(all_dataframes, ignore_index=True)
+    combined_df["date"] = pd.to_datetime("today").strftime("%Y-%m-%d")  # Add today's date
+    combined_df.to_excel('all_products.xlsx', index=False)
+    print("Done: All data saved in 'all_products.xlsx'")
+
 
 if __name__ == "__main__":
     main()
