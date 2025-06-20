@@ -100,6 +100,48 @@ SCRAPER_CONFIG = {
             }
         },
 
+        "sherin_williams": {
+            "urls": [
+                'https://www.sherwin-williams.com/wcs/resources/store/10151/xcatalog/getSKUDetails/15990',
+                'https://www.sherwin-williams.com/wcs/resources/store/10151/xcatalog/getSKUDetails/361503',
+                'https://www.sherwin-williams.com/wcs/resources/store/10151/xcatalog/getSKUDetails/438018',
+                'https://www.sherwin-williams.com/wcs/resources/store/10151/xcatalog/getSKUDetails/414510',
+                'https://www.sherwin-williams.com/wcs/resources/store/10151/xcatalog/getSKUDetails/885016'
+            ],
+            "api": {
+                "type": "json",
+                "headers": {
+                    'accept': 'application/json, text/plain, */*',
+                    'accept-language': 'en-US,en;q=0.9,it;q=0.8,es;q=0.7',
+                    'priority': 'u=1, i',
+                    'referer': 'https://www.sherwin-williams.com/homeowners/products/duration-exterior-acrylic-latex?colorPartNumber=SW7005&secureweb=Teams',
+                    'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36'
+                },
+                "product_path": ["productDetails", "name"],
+                "price_path": ["priceObject", "lP"], 
+            }
+        },
+
+        "duluxdecoratorcentre": {
+            "urls": [
+                "https://www.duluxdecoratorcentre.co.uk/dulux-trade-diamond-eggshell?returnurl=%2fsearch%3fq%3ddulux%2btrade%2bdiamond%2beggshell&secureweb=Teams"
+            ],
+            "api": {
+                "type": "html_json",
+                "headers": {
+                    "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36"
+                },
+                "script_type": "application/ld+json",
+                "product_path": ["name"],
+                "price_path": ["offers", "price"],
+                "currency_path": ["offers", "priceCurrency"],
+                "filter_criteria": {
+                    "name_contains": ["5L", "Pure Brilliant White"]
+                }
+            }
+        },
+
+
         "toolstation": {
             "urls": [
                 {
@@ -157,7 +199,8 @@ SCRAPER_CONFIG = {
                 'https://www.diy.com/departments/sandtex-ultra-smooth-pure-brilliant-white-masonry-paint-5l/127469_BQ.prd',
                 'https://www.diy.com/departments/goodhome-walls-ceilings-brilliant-white-vinyl-matt-emulsion-paint-2-5l/5059340231983_BQ.prd',
                 'https://www.diy.com/departments/goodhome-classic-pure-brilliant-white-smooth-matt-masonry-paint-5l/3663602520795_BQ.prd',
-                'https://www.diy.com/departments/dulux-weathershield-pure-brilliant-white-smooth-matt-masonry-paint-10l/5010212644447_BQ.prd'
+                'https://www.diy.com/departments/dulux-weathershield-pure-brilliant-white-smooth-matt-masonry-paint-10l/5010212644447_BQ.prd',
+                'https://www.diy.com/departments/dulux-trade-white-high-gloss-metal-wood-paint-2-5l/35991_BQ.prd'
             ],
             "product_name": {
                 "type": "soup",

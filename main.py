@@ -75,6 +75,33 @@ def scrape_site(site, conf):
                     product_name = extract_json_path(data, conf["api"]["product_path"])
                     price = extract_json_path(data, conf["api"]["price_path"])
 
+                elif method == "html_json":
+                    response = requests.get(
+                        url, 
+                        headers=headers
+                    )
+                    soup = BeautifulSoup(response.text, 'html.parser')
+                    script_tag = soup.find('script', type=conf["api"].get("script_type", "application/ld+json"))
+                    
+                    if script_tag:
+                        data = json.loads(script_tag.string)
+                        variants = data.get("hasVariant", [])
+                        filter_keywords = conf["api"].get("filter_criteria", {}).get("name_contains", [])
+
+                        match_found = False
+                        for variant in variants:
+                            name = extract_json_path(variant, conf["api"]["product_path"])
+                            if all(keyword in name for keyword in filter_keywords):
+                                product_name = name
+                                price = extract_json_path(variant, conf["api"]["price_path"])
+                                currency = extract_json_path(variant, conf["api"].get("currency_path", []))
+                                match_found = True
+                                break
+
+                        # Optionally log or raise an error if no match was found
+                        if not match_found:
+                            print("No matching variant found.")
+
                 else:
                     product_name = price = None
 
@@ -134,7 +161,7 @@ def main():
 
     combined_df = pd.concat(all_dataframes, ignore_index=True)
     combined_df["date"] = pd.to_datetime("today").strftime("%Y-%m-%d")  # Add today's date
-    combined_df.to_excel('all_products.xlsx', index=False)
+    combined_df.to_excel('all_products3.xlsx', index=False)
     print("Done: All data saved in 'all_products.xlsx'")
 
 
