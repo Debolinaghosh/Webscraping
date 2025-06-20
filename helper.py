@@ -100,25 +100,42 @@ SCRAPER_CONFIG = {
 
         "toolstation": {
             "urls": [
-                "https://www.toolstation.com/ecom/v1/products/getProducts"
+                {
+                    "link": "https://www.toolstation.com/ecom/v1/products/getProducts",
+                    "json_data": {
+                        'products': [
+                            '21785',
+                            '18930'
+                        ]
+                    },
+                }, 
+                {
+                    "link": "https://www.toolstation.com/ecom/v1/products/getProducts",
+                    "json_data": {
+                        'products': [
+                            '48972',
+                            '21785'
+                        ]
+                    },
+                }
             ],
             "api": {
                 "type": "post_json",
                 "headers": {
                     'accept': 'application/json, text/plain, */*',
                     'accept-language': 'en-US,en;q=0.9,hi;q=0.8',
-                    'authorization': 'Bearer PgThTZq4ZlGdhQEx9zhcohd9K4aZ',
+                    'authorization': 'Bearer GCvXM4Vckz9oAT907pwPtWuUCJtk',
                     'content-type': 'application/json',
                     'origin': 'https://www.toolstation.com',
-                    'referer': 'https://www.toolstation.com/dulux-trade-high-gloss-paint/p21785',
+                    'referer': 'https://www.toolstation.com/dulux-trade-high-gloss-paint/p21785?searchstr=sandtex+ultra+smooth',
                     'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36'
-                    },
-                "json_data": {
-                    'products': [
-                        '21785',
-                        '18930'
-                    ]
                 },
+                # "json_data": {
+                #     'products': [
+                #         '21785',
+                #         '18930'
+                #     ]
+                # },
                 "product_path": ["data", 0, "full_name"],
                 "price_path": ["data", 0, "prices", "raw", "gross"]
             }

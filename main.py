@@ -70,11 +70,12 @@ def scrape_site(site, conf):
 
                 elif method == "post_json":
                     response = requests.post(
-                        url,
+                        url["link"],
                         headers=headers,
-                        json=conf["api"]["json_data"]
+                        json=url["json_data"]
                     )
                     data = response.json()
+                    print(data)
                     product_name = extract_json_path(data, conf["api"]["product_path"])
                     price = extract_json_path(data, conf["api"]["price_path"])
 
@@ -118,6 +119,7 @@ def scrape_site(site, conf):
                     price = extract_from_jsonld(soup, conf["price"]["json_path"])
                 else:
                     price = None
+            print(product_name)
             print(price)
             results.append({"Product Name": product_name, "Price": price})
 
@@ -130,7 +132,7 @@ def main():
     for site, conf in SCRAPER_CONFIG["WEBSITES"].items():
         data = scrape_site(site, conf)
         df = pd.DataFrame(data)
-        df.to_excel(f'files/product_{site}.xlsx', index=False)
+        df.to_excel(f'files1/product_{site}.xlsx', index=False)
         print(f"Done: {site}")
 
 if __name__ == "__main__":
