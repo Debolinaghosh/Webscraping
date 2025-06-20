@@ -1,0 +1,34 @@
+#Mano Mano
+import requests
+from bs4 import BeautifulSoup
+
+def fetch_product_data(url, proxies):
+    headers = {
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
+    }
+    response = requests.get(url, headers=headers, proxies=proxies)
+
+    soup = BeautifulSoup(response.content, 'html.parser')
+
+    product_name_tag = soup.find('h1')
+    product_name = product_name_tag.text.strip() if product_name_tag else 'Product name not found'
+
+    price_tag = soup.find('span', itemprop='price')
+    price = price_tag['content'] if price_tag else 'Price not found'
+
+    currency_tag = soup.find('span', itemprop='priceCurrency')
+    currency = currency_tag['content'] if currency_tag else ''
+
+    final_price = f"{price} {currency}" if price and currency else price
+
+    return {
+        'Product Name': product_name,
+        'Price': final_price
+    }
+
+url = 'https://www.manomano.fr/p/peinture-color-resist-murs-boiseries-6747779?model_id=17379380'
+proxies = {"http": "http://approxy.jpmchase.net:10443" , "https": "http://approxy.jpmchase.net:10443"}
+
+product_data = fetch_product_data(url, proxies)
+
+print(product_data)
