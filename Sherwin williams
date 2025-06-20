@@ -1,0 +1,51 @@
+#Sherwin Williams
+import json
+import os
+import requests
+import pandas as pd
+
+def extract_product_info(json_data):
+    product_name = data.get('productDetails', {}).get('name', 'Name not found')
+    
+    price = data.get('priceObject', {}).get('lP', 'Price not found')
+    
+    return product_name, price
+
+
+proxies = {"http": "http://approxy.jpmchase.net:10443", "https": "http://approxy.jpmchase.net:10443"}
+
+headers = {
+    'accept': 'application/json, text/plain, */*',
+    'accept-language': 'en-US,en;q=0.9,it;q=0.8,es;q=0.7',
+    'priority': 'u=1, i',
+    'referer': 'https://www.sherwin-williams.com/homeowners/products/duration-exterior-acrylic-latex?colorPartNumber=SW7005&secureweb=Teams',
+    'sec-ch-ua': '"Chromium";v="136", "Google Chrome";v="136", "Not.A/Brand";v="99"',
+    'sec-ch-ua-mobile': '?0',
+    'sec-ch-ua-platform': '"Windows"',
+    'sec-fetch-dest': 'empty',
+    'sec-fetch-mode': 'cors',
+    'sec-fetch-site': 'same-origin',
+    'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36',
+    # Requests sorts cookies= alphabetically
+    # 'cookie': f"JSESSIONID=00000BtGu-zXThkEI2Z14HZ9Qnt:-1; WC_SESSION_ESTABLISHED=true; WC_PERSISTENT=CmpnU7o51xIfSfp6WTXN0HVK0wypFzXIHsi%2ByyYwScY%3D%3B2025-06-18+11%3A13%3A45.965_1750245225957-736017_10151_-1002%2C-1%2CUSD%2CuAWlxUwLDhu5RaLwuHYiVeRAIVtZRoz9jKMXXwEnQhzszx2tOiv8fg%2BDGuKmJSQfD%2Fbrw3%2FrVHG9WhN1WEBZHA%3D%3D_10151; WC_AUTHENTICATION_-1002=-1002%2CJdh5JVzqovGDGuZIS9A0yAc11LCiDPi1CWNOoTX%2B9xo%3D; WC_ACTIVEPOINTER=-1%2C10151; WC_USERACTIVITY_-1002=-1002%2C10151%2Cnull%2Cnull%2Cnull%2Cnull%2Cnull%2Cnull%2Cnull%2Cnull%2C1877362032%2Cver_null%2C6IgXZc7aDgi7e3EJ6Sstf%2FPeYrXEJ4PoXTqb5MjGidXDTIIozNBL2WUb8G7s4muUQW46lXCxEdhGv5ssWAh8U6gpFDStZhv67x%2FD6q1mp2GZWD1SNp1BCU1BlcT6Oa9rh%2F41BNl7myBlViYIJtMPe8KvhI1R%2F%2FpF45nB%2FlhVvIMYCVQNeYETJSJNJzou9QcvdFhjGsEsBW363DnGKRlV5JvfD467DPZtInNbzhJyo4ukcxceCqlbAXNDCM9KfCMI; WC_GENERIC_ACTIVITYDATA=[6489779340%3Atrue%3Afalse%3A0%3AvCFMyjLQKkgPv1m%2BkLoKmBufFQE3qwR1Ne6Yx3fFtGA%3D][com.ibm.commerce.context.entitlement.EntitlementContext|4000000000000000006%264000000000000000006%26null%26-2000%26null%26null%26null][com.ibm.commerce.context.audit.AuditContext|1750245225957-736017][com.sherwinwilliams.commerce.context.SWUserProfileContext|null%26null%26null%26null%26null%26null%26null%26null%26null%26null%26null%26null%260%26null%26null%26null%26null%26null%26null%26null][com.ibm.commerce.context.globalization.GlobalizationContext|-1%26USD%26-1%26USD][com.ibm.commerce.store.facade.server.context.StoreGeoCodeContext|null%26null%26null%26null%26null%26null][com.ibm.commerce.context.experiment.ExperimentContext|null][com.ibm.commerce.context.ExternalCartContext|null][com.ibm.commerce.context.bcsversion.BusinessContextVersionContext|null][com.ibm.commerce.giftcenter.context.GiftCenterContext|null%26null%26null][com.ibm.commerce.catalog.businesscontext.CatalogContext|11051%26null%26false%26false%26false][CTXSETNAME|Store][com.ibm.commerce.context.base.BaseContext|10151%26-1002%26-1002%26-1]; dtCookie=v_4_srv_4_sn_EAAD276A4BD66D1EDADB71AA6B2D845E_perc_100000_ol_0_mul_1_app-3A97fdcb436c22011a_1_rcs-3Acss_0; TS01ea1910=01da4c26b547b3a2cb1410de67263c6277acda14c03327e7d4f40fd91a77c82088cbb15b581c8941436cbaf26e394ad6fdd77653bf; _gcl_au=1.1.1466034429.1750245232; WC_shoppingEnabled=false; WC_onlineOrderingEnabled=false; SHERWIN_ENSIGHTEN_PRIVACY_BANNER_LOADED=1; _cls_v=0911c786-3a24-499c-8cf5-4ca879e5ed82; _cls_s=11650d2e-c23e-412c-a32d-85bd95a58ac0:0; rwdTable_-homeowners-products-duration-exterior-acrylic-latex_undefined=; _ga=GA1.1.635501545.1750245233; WC_CartOrderId_10151=; rto=c0; SHERWIN_ENSIGHTEN_PRIVACY_BANNER_VIEWED=1; SHERWIN_ENSIGHTEN_PRIVACY_Targeted_Advertising=0; SHERWIN_ENSIGHTEN_PRIVACY_Performance_Cookies=0; SHERWIN_ENSIGHTEN_PRIVACY_Functional_Cookies=0; gig_bootstrap_3_J0C-p-U2nvXytymS5LeNbnD6JFk5mpK3Lncp1HjMKbA8XxTHoIcR3tKHAFoAVxhn=socialize_ver4; RT=\"z=1&dm=www.sherwin-williams.com&si=2a825b34-6a2d-4ad3-9014-ca9a94630c70&ss=mc1uteb3&sl=1&tt=7r5&rl=1&ld=7r7&ul=8gy&hd=aun\"; _ga_BFTFS1H2E0=GS2.1.s1750245233{o1$g0$t1750245238$j55$l0$h0;} rwdTable_-homeowners-products-snapdry-door-trim-paint_undefined=; SEGMENT_TYPE=homeowners; TS01dc4fc6=01da4c26b51c84b0e1118b386391445ca1a947fd7ec82d64c2a79209793fa11dd50db53754904af19d7525ededa8011a1225897000; AKA_A2=A; 50f303=MxN2KITXJXPAJTbjSwfIbba1JDRcwQHIMwucDADzvJtnM5V30+vMw8dU+szyO0OCxBNJVNhPzt6/wXgavQggj0e/EfyYs15pTKNYDOevNJBygXzdrp86j0tpVBSw1vW9zGKuHJ8/qolIvkkcIphrE+/8hqPg+xjTjXYW2XN6wR/1oBeU; 86b503=Ssw1Fb+fXXiuO/BoDe3vDFC7+0smjLFsEkw2z/lw186Hkj0fvP7me3gj62Ip6W+5QVJxmCwYrLKnPoUermbT7VHfgMhn4C7DtEbYHMLLTzzehPwo+LbQfBeCXOIHw2eS9+rPwlDL+9mx7NieWFjGXkgaQRO4dUraVEZAQG9VAYqQfy1T",
+}
+
+
+urls = [
+    'https://www.sherwin-williams.com/wcs/resources/store/10151/xcatalog/getSKUDetails/15990',
+    'https://www.sherwin-williams.com/wcs/resources/store/10151/xcatalog/getSKUDetails/361503',
+    'https://www.sherwin-williams.com/wcs/resources/store/10151/xcatalog/getSKUDetails/438018',
+    'https://www.sherwin-williams.com/wcs/resources/store/10151/xcatalog/getSKUDetails/414510',
+    'https://www.sherwin-williams.com/wcs/resources/store/10151/xcatalog/getSKUDetails/885016'
+]
+
+product_list = []
+
+for url in urls:
+    response = requests.get(url, proxies=proxies, headers=headers)
+    data = response.json()
+    product_name, price = extract_product_info(data)
+    product_list.append({'Product Name': product_name, 'Price': price})
+
+df = pd.DataFrame(product_list)
+df.to_excel('product_sherwin.xlsx', index=False)
