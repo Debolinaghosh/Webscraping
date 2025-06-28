@@ -1,0 +1,563 @@
+# latest code
+SCRAPER_CONFIG = {
+    "proxy": {"http": "http://proxy.jpmchase.net:8443", "https": "http://proxy.jpmchase.net:8443"},
+    "WEBSITES": {
+        "gamma": {
+            "country": "Netherlands",
+            "urls": [            
+                {
+                    "link": "https://www.gamma.nl/assortiment/flexa-powerdek-wit-10-liter-25/p/B440828",
+                    "product_description": "Akzo10LFlexa Powerdek"
+                }, 
+                {
+                    "link": "https://www.gamma.nl/assortiment/flexa-strak-in-de-lak-voor-binnen-ral-9010-gebroken-wit-zijdeglans-750-ml/p/B535884",
+                    "product_description": "Akzo0.75LFlexa Strak in de Lak zijdeglans ral9010"
+                },
+                {
+                    "link": "https://www.gamma.nl/assortiment/histor-monodek-revolution-wit-10-liter/p/B144564",
+                    "product_description": "PPG10LHistor Monodek Revolution"
+                },
+                {
+                    "link": "https://www.gamma.nl/assortiment/sigma-lak-interieur-9010-zuiverwit-zijdeglans-750-ml/p/B598778",
+                    "product_description": "PPG0.750LSigma lak interieur"
+                },
+                {
+                    "link": "https://www.gamma.nl/assortiment/wijzonol-grondverf-dekkend-wit-750-ml/p/B430624",
+                    "product_description": "Wijzonol0.750LDekkend Grondlak"
+                }
+            ],
+            "price": {
+                "type": "soup",
+                "find": {
+                    "name": "meta", 
+                    "attrs": {"itemprop": "price", "content": True}
+                },
+            }
+        },
+        "praxis": {
+            "country": "Netherlands",
+            "urls": [
+                {
+                    "link": "https://www.praxis.nl/verf-laminaat-decoratie/verf/lakken/flexa-lak-strak-de-lak-zijdeglans-cr%C3%A8me-wit-ral-9001-750ml/5377082",
+                    "product_description": "Akzo0.75LFlexa Strak in de Lak zijdeglans ral9010"
+                }, 
+                {
+                    "link": "https://www.praxis.nl/verf-laminaat-decoratie/verf/latex/histor-latex-monodek-revolution-mat-wit-10l/10026886",
+                    "product_description": "PPG10LHistor Monodek Revolution"
+                },
+                {
+                    "link": "https://www.praxis.nl/verf-laminaat-decoratie/verf/lakken/sigma-lak-zwart-satijn-750ml/563861",
+                    "product_description": "PPG0.750LSigma lak interieur"
+                },
+                {
+                    "link": "https://www.praxis.nl/verf-laminaat-decoratie/verf/grondverf/wijzonol-grondverf-lak-mat-blauwgrijs-750ml/5291151",
+                    "product_description": "Wijzonol0.750LDekkend Grondlak"
+                },
+                {
+                    "link": "https://www.praxis.nl/verf-laminaat-decoratie/verf/latex/flexa-muurverf-powerdek-muren-plafonds-10l-25/5283161",
+                    "product_description": "Akzo10LFlexa Powerdek"
+                }
+            ],
+            "price": {
+                "type": "json-ld",
+                "json_path": ["offers", "price"]
+            } 
+        },
+
+        
+
+        "karwei": {
+            "country": "Netherlands",
+            "urls": [
+                {
+                    "link": "https://www.karwei.nl/assortiment/flexa-powerdek-muurverf-mat-stralend-wit-10-l/p/B440827",
+                    "product_description": "Akzo10LFlexa Powerdek"
+                }, 
+                {
+                    "link": "https://www.karwei.nl/assortiment/flexa-strak-in-de-lak-zijdeglans-ral9010-750-ml-watergedragen/p/B535884",
+                    "product_description": "Akzo0.75LFlexa Strak in de Lak zijdeglans ral9010"
+                },
+                {
+                    "link": "https://www.karwei.nl/assortiment/histor-monodek-revolution-latex-wit-10-liter/p/B144564",
+                    "product_description": "PPG10LHistor Monodek Revolution"
+                },
+                {
+                    "link": "https://www.karwei.nl/assortiment/sigma-houtlak-interieur-zijdeglans-ral-9010-750-ml/p/B598778",
+                    "product_description": "PPG0.750LSigma lak interieur"
+                },
+                {
+                    "link": "https://www.karwei.nl/assortiment/wijzonol-grondlak-wit-750-ml/p/B430624",
+                    "product_description": "Wijzonol0.750LDekkend Grondlak"
+                }
+            ],
+            "price": {
+                "type": "soup",
+                "find": {
+                    "name": "div",
+                    "attrs": {
+                        "class": [
+                            "product-price"
+                        ]
+                    }
+                }
+            }
+        },
+        "castorama": {
+            "country": "France",
+            "urls": [
+                {
+                    "link": "https://www.castorama.pl/farba-dulux-easycare-perlowy-bialy-2-5-l-id-1109981.html",
+                    "product_description": "Description of the product1 castorama"
+                },
+                {
+                    "link": "https://www.castorama.pl/rapidry-szary-bez-0-4l-id-1101006.html",
+                    "product_description": "Description of the product2 castorama"
+                },
+                {
+                    "link": "https://www.castorama.pl/emalia-do-kaloryferow-dekoral-biala-0-7-l-id-1028391.html",
+                    "product_description": "Description of the product3 castorama"
+                },
+                {
+                    "link": "https://www.castorama.pl/dekoral-k-l-deser-waniliowy-2-5l-id-1058667.html",
+                    "product_description": "Description of the product4 castorama"
+                },
+                {
+                    "link": "https://www.castorama.pl/emulsja-podkladowa-sniezka-grunt-biala-5-l-id-19975.html",
+                    "product_description": "Description of the product5 castorama"
+                },
+                {
+                    "link": "https://www.castorama.fr/peinture-murs-et-boiseries-dulux-valentine-creme-du-couleur-marron-glace-satin-2-5l-20-gratuit/3031520137096_CAFR.prd",
+                    "product_description": "Akzo2.5LSatinDulux Valetine Crème De Couleur"
+                },
+                {
+                    "link": "https://www.castorama.fr/peinture-murs-et-boiseries-dulux-valentine-color-resist-ivoire-satin-2-5l/3031520231312_CAFR.prd",
+                    "product_description": "Akzo2.5LSatinDulux Valentine Color Resist"
+                },
+                {
+                    "link": "https://www.castorama.fr/laque-valenite-dulux-blanc-de-blanc-satin-2l/3031520150828_CAFR.prd",
+                    "product_description": "Akzo2LSatinDulux Laque Satin Valenite"
+                },
+                {
+                    "link": "https://www.castorama.fr/peinture-murs-et-plafonds-tollens-pro-mat-10l/3463975247851_CAFR.prd",
+                    "product_description": "Tollens10LMatPeinture murs et plafonds	"
+                }
+            ],
+            "price": {
+                "type": "soup",
+                "find": {
+                    "name": "div", 
+                    "attrs": {
+                        "class": "_5d34bd7a"
+                    }
+                },
+            }
+        },
+        "wickes": {
+            "country": "UK",
+            "urls": [
+                {
+                    "link": "https://rapidload.increasingly.co/increasingly_bundles?irb/cHJvZHVjdF9pZHM9MTM3NDY4JmNhdGVnb3J5X2lkPSZhcGlfa2V5PXdLUzh4eiZjbGllbnRfaWQ9JnBhZ2VfdHlwZT1jYXRhbG9nX3Byb2R1Y3RfdmlldyZjbGllbnRfdmlzaXRvcl9pZD0wNWRkMWNlNzQ4NjBlOGYxMjZkZGQ5MmVkZmQ4YTQ3MzIwYTExMTM3YjgmZnI9MSZpc190Yz0xJm5vX29mX2J1bmRsZXM9MTA=",
+                    "product_description": "Sandtex Microseal Ultra Smooth Weatherproof Masonry 15 Year Exterior Wall Paint - Pure Brilliant White - 5L",
+                    "display_link": "https://www.wickes.co.uk/Sandtex-Microseal-Ultra-Smooth-Weatherproof-Masonry-15-Year-Exterior-Wall-Paint---Pure-Brilliant-White---5L/p/137468"
+                },
+                {
+                    "link": "https://rapidload.increasingly.co/increasingly_bundles?irb/cHJvZHVjdF9pZHM9MTg0NjE3JmNhdGVnb3J5X2lkPSZhcGlfa2V5PXdLUzh4eiZjbGllbnRfaWQ9JnBhZ2VfdHlwZT1jYXRhbG9nX3Byb2R1Y3RfdmlldyZmcj0xJmNsaWVudF92aXNpdG9yX2lkPTA1ZGQxY2U3NDg2MGU4ZjEyNmRkZDkyZWRmZDhhNDczMjBhMTExMzdiOCZpc190YnhfbmV3PTEmbm9fb2ZfYnVuZGxlcz0x",
+                    "product_description": "Wickes Vinyl Matt Emulsion Paint - Almost White No.100 - 2.5L",
+                    "display_link": "https://www.wickes.co.uk/Wickes-Vinyl-Matt-Emulsion-Paint---Almost-White-No-100---2-5L/p/184617"
+                },
+                {
+                    "link": "https://rapidload.increasingly.co/increasingly_bundles?irb/cHJvZHVjdF9pZHM9MTIyNDI4JmNhdGVnb3J5X2lkPSZhcGlfa2V5PXdLUzh4eiZjbGllbnRfaWQ9JnBhZ2VfdHlwZT1jYXRhbG9nX3Byb2R1Y3RfdmlldyZjbGllbnRfdmlzaXRvcl9pZD0wNWRkMWNlNzQ4NjBlOGYxMjZkZGQ5MmVkZmQ4YTQ3MzIwYTExMTM3YjgmZnI9MSZpc190Yz0xJm5vX29mX2J1bmRsZXM9MTA=",
+                    "product_description": "Wickes Vinyl Matt Emulsion Paint - Pure Brilliant White No.0 - 2.5L",
+                    "display_link": "https://www.wickes.co.uk/Wickes-Vinyl-Matt-Emulsion-Paint---Pure-Brilliant-White-No-0---2-5L/p/122428"
+                },
+                {
+                    "link": "https://rapidload.increasingly.co/increasingly_bundles?irb/cHJvZHVjdF9pZHM9MTA2NTAwJmNhdGVnb3J5X2lkPSZhcGlfa2V5PXdLUzh4eiZjbGllbnRfaWQ9JnBhZ2VfdHlwZT1jYXRhbG9nX3Byb2R1Y3RfdmlldyZmcj0xJmNsaWVudF92aXNpdG9yX2lkPTA1ZGQxY2U3NDg2MGU4ZjEyNmRkZDkyZWRmZDhhNDczMjBhMTExMzdiOA==",
+                    "product_description": "Dulux trade white gloss (2.5L)",
+                    "display_link": "https://www.wickes.co.uk/Dulux-Trade-High-Gloss-Paint---Pure-Brilliant-White---2-5L/p/106500"
+                },
+                {
+                    "link": "https://rapidload.increasingly.co/increasingly_bundles?irb/cHJvZHVjdF9pZHM9MTQ3MDc2JmNhdGVnb3J5X2lkPSZhcGlfa2V5PXdLUzh4eiZjbGllbnRfaWQ9JnBhZ2VfdHlwZT1jYXRhbG9nX3Byb2R1Y3RfdmlldyZmcj0xJmNsaWVudF92aXNpdG9yX2lkPTA1ZGQxY2U3NDg2MGU4ZjEyNmRkZDkyZWRmZDhhNDczMjBhMTExMzdiOCZpc190YnhfbmV3PTEmbm9fb2ZfYnVuZGxlcz0x",
+                    "product_description": "Dulux Matt Emulsion Paint - Pure Brilliant White - 2.5L",
+                    "display_link": "https://www.wickes.co.uk/Dulux-Matt-Emulsion-Paint---Pure-Brilliant-White---2-5L/p/147076"
+                }
+            ],
+            "headers": {
+                'accept': '*/*',
+                'accept-language': 'en-US,en;q=0.9,it;q=0.8,es;q=0.7',
+                'origin': 'https://www.wickes.co.uk',
+                'priority': 'u=1, i',
+                'referer': 'https://www.wickes.co.uk/',
+                'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36',
+            },
+            "api": {
+                "type": "json",
+                "price_path": ["ProductsDetail", 0, "Price"],
+            }
+        },
+
+        "toolstation": {
+            "country": "UK",
+            "urls": [
+                {
+                    "link": "https://www.toolstation.com/ecom/v1/products/getProducts",
+                    "json_data": {
+                        'products': [
+                            '18930'
+                        ]
+                    },
+                    "product_description": "Sandtex ultra smooth masonary paint (5L)",
+                    "display_link": "https://www.toolstation.com/sandtex-ultra-smooth-masonry-paint-5l/p18930?searchstr=sandtex%20ultra%20smooth"
+                }, 
+                {
+                    "link": "https://www.toolstation.com/ecom/v1/products/getProducts",
+                    "json_data": {
+                        'products': [
+                            '21785'
+                        ]
+                    },
+                    "product_description": "Dulux trade white gloss (2.5L)",
+                    "display_link": "https://www.toolstation.com/dulux-trade-high-gloss-paint/p21785"
+                }
+            ],
+            "headers": {
+                'accept': 'application/json, text/plain, */*',
+                'accept-language': 'en-US,en;q=0.9,it;q=0.8,es;q=0.7',
+                'origin': 'https://www.toolstation.com',
+                'priority': 'u=1, i',
+                'referer': 'https://www.toolstation.com/sandtex-ultra-smooth-masonry-paint-5l/p18930?searchstr=sandtex+ultra+smooth&secureweb=Teams',
+                'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36'
+                },
+            "api": {
+                "type": "post_json",
+                "price_path": ["data", 0, "prices", "raw", "gross"]
+            },
+        },
+
+        "B&Q": {
+            "country": "UK",
+            "urls" : [
+                {
+                    "link": "https://www.diy.com/departments/dulux-trade-white-high-gloss-metal-wood-paint-2-5l/35991_BQ.prd",
+                    "product_description": "Dulux trade white gloss (2.5L)"
+                },
+                {
+                    "link": "https://www.diy.com/departments/valspar-trade-pure-brilliant-white-gloss-metal-wood-paint-2-5l/971998_BQ.prd",
+                    "product_description": "Valspar Trade Pure brilliant white Gloss Metal & wood paint, 2.5L"
+                },
+                {
+                    "link": "https://www.diy.com/departments/leyland-white-gloss-metal-wood-paint-2-5l/1491791_BQ.prd",
+                    "product_description": "Leyland White Gloss Metal & wood paint, 2.5L"
+                },
+                {
+                    "link": "https://www.diy.com/departments/dulux-walls-ceilings-pure-brilliant-white-matt-emulsion-paint-10l/1785813_BQ.prd",
+                    "product_description": "Dulux Pure brilliant white Matt Emulsion paint, 10L"
+                },
+                {
+                    "link": "https://www.diy.com/departments/valspar-white-matt-emulsion-paint-10l/1698002_BQ.prd",
+                    "product_description": "Valspar White Matt Emulsion paint, 10L"
+                },
+                {
+                    "link": "https://www.diy.com/departments/valspar-white-matt-emulsion-paint-2-5l/1698004_BQ.prd",
+                    "product_description": "Valspar"
+                },
+                {
+                    "link": "https://www.diy.com/departments/leyland-pure-brilliant-white-matt-emulsion-paint-10l/1335443_BQ.prd",
+                    "product_description": "Leyland Pure brilliant white Matt Emulsion paint, 10L"
+                },
+                {
+                    "link": "https://www.diy.com/departments/ronseal-one-coat-fence-life-harvest-gold-matt-fence-shed-treatment-5l/1919522_BQ.prd",
+                    "product_description": "Ronseal fence paint(one coat, 5L)"
+                },
+                {
+                    "link": "https://www.diy.com/departments/sandtex-ultra-smooth-pure-brilliant-white-masonry-paint-5l/127469_BQ.prd",
+                    "product_description": "Sandtex ultra smooth masonary paint (5L)"
+                },
+                {
+                    "link": "https://www.diy.com/departments/goodhome-walls-ceilings-brilliant-white-vinyl-matt-emulsion-paint-2-5l/5059340231983_BQ.prd",
+                    "product_description": "GoodHome Walls & Ceilings Brilliant white Vinyl matt Emulsion paint, 2.5L"
+                },
+                {
+                    "link": "https://www.diy.com/departments/goodhome-classic-pure-brilliant-white-smooth-matt-masonry-paint-5l/3663602520795_BQ.prd",
+                    "product_description": "GoodHome Classic Pure brilliant white Smooth Matt Masonry paint, 5L"
+                },
+                {
+                    "link": "https://www.diy.com/departments/dulux-weathershield-pure-brilliant-white-smooth-matt-masonry-paint-10l/5010212644447_BQ.prd",
+                    "product_description": "Dulux Weathershield Pure brilliant white Smooth Matt Masonry paint, 10L"
+                }
+            ],
+            "price": {
+                "type": "soup",
+                "find": {
+                    "name": "span", 
+                    "attrs": {
+                        "data-testid": "product-price"
+                    }
+                },
+            }
+        },
+
+        
+
+        "jernia": {
+            "country": "Norway",
+            "urls": [
+                {
+                    "link": "https://www.jernia.no/c/jotun-murprimer-drytech-0%2C75l/p/58018649",
+                    "product_description": "Jotun0.75LJOTUN MURPRIMER DRYTECH"
+                }
+            ],
+            "price": {
+                "type": "json-ld",
+                "json_path": ["offers", "price"],
+                "currency_path": ["offers", "priceCurrency"]
+            }
+        },
+
+        "bricodepot": {
+            "country": "France",
+            "urls": [
+                {
+                    "link": "https://www.bricodepot.fr/angers-beaucouze/tollens-pro-murs-et-plafonds-mat-10-l-/prod75488/",
+                    "product_description": "Tollens10LMatPeinture murs et plafonds"
+                },
+                {
+                    "link": "https://www.bricodepot.fr/angers-beaucouze/peinture-mur-interieur-2-en-1-satin-25-l-blanc-pur/prod85495/",
+                    "product_description": "mur intérieur 2 en 1 Satin 2,5 L Blanc pur"
+                },
+                {
+                    "link": "https://www.bricodepot.fr/angers-beaucouze/peinture-interieur-satin-2-l-beige-bauxite/prod85586/",
+                    "product_description": "Peinture intérieur Satin 2 L Beige bauxite"
+                },
+                # {
+                #     "link": "https://www.bricodepot.fr/angers-beaucouze/peinture-murs-et-boiseries-interieure-color-resist-acrylique-satin-porcelaine-25-l/prod62099/",
+                #     "product_description": "Akzo2.5LSatinDulux Valentine Color Resist"
+                # },
+                # {
+                #     "link": "https://www.bricodepot.fr/angers-beaucouze/peinture-glycero-boiseries-satin-blanc2-l/prod76834/",
+                #     "product_description": "Akzo2LSatinDulux Laque Satin Valenite"
+                # }
+            ],
+            "price": {
+                "type": "soup",
+                "find": {
+                    "name": "span", 
+                    "attrs": {
+                        "class": "bd-Price-current"
+                    }
+                }
+            }
+        },
+
+        "sherin_williams": {
+            "country": "US",
+            "urls": [
+                {
+                    "link": "https://www.sherwin-williams.com/wcs/resources/store/10151/xcatalog/getSKUDetails/15990",
+                    "product_description": "5 GallonPure White SW 7005FlatDuration Exterior Acrylic Latex"
+                },
+                {
+                    "link": "https://www.sherwin-williams.com/wcs/resources/store/10151/xcatalog/getSKUDetails/361503",
+                    "product_description": "D5 GallonPure White SW 7005FlatEmerald Interior Acrylic Latex Paint"
+                },
+                {
+                    "link": "https://www.sherwin-williams.com/wcs/resources/store/10151/xcatalog/getSKUDetails/438018",
+                    "product_description": "5 GallonPure White SW 7005SatinSnapDry Door & Trim Paint"               
+                },
+                {
+                    "link": "https://www.sherwin-williams.com/wcs/resources/store/10151/xcatalog/getSKUDetails/414510",
+                    "product_description": "5 GallonPure White SW 7005FlatDuration Home Interior Acrylic Latex"
+                },
+                {
+                    "link": "https://www.sherwin-williams.com/wcs/resources/store/10151/xcatalog/getSKUDetails/885016",
+                    "product_description": "5 GallonPure White SW 7005SatinEmerald Urethane Trim Enamel"
+                }
+            ],
+            "headers": {
+                    'accept': 'application/json, text/plain, */*',
+                    'accept-language': 'en-US,en;q=0.9,it;q=0.8,es;q=0.7',
+                    'priority': 'u=1, i',
+                    'referer': 'https://www.sherwin-williams.com/homeowners/products/duration-exterior-acrylic-latex?colorPartNumber=SW7005',
+                    'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36',
+                },
+            "api": {
+                "type": "json",
+                "price_path": ["priceObject", "lP"],
+            }
+        },
+
+        "dulux": {
+            "country": "UK",
+            "urls": [
+                {
+                    "link": "https://www.duluxdecoratorcentre.co.uk/dulux-trade-diamond-eggshell?returnurl=%2fsearch%3fq%3ddulux%2btrade%2bdiamond%2beggshell",
+                    "product_description": "Dulux Trade Diamond Eggshell - Pure Brilliant White 5L"
+                },
+                {
+                    "link": "https://www.duluxdecoratorcentre.co.uk/dulux-trade-weathershield-quick-dry-exterior-satin?returnurl=%2fsearch%3fq%3ddulux%2btrade%2bweathershield%2bquick%2bdry%2bexterior",
+                    "product_description": "Dulux Trade Weathershield Quick Dry Exterior Satin. Pure Brilliant White. 5L"
+                }
+            ],
+            "headers": {
+                "accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7",
+                "accept-language": "en-US,en;q=0.9,it;q=0.8,es;q=0.7",
+                "priority": "u=0, i",
+                "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36"
+            },
+            "price": {
+                "type": "json-ld",
+                "json_path": ['hasVariant'],
+                "filter": {
+                    "name_keywords": ["5L", "Pure Brilliant White"],
+                    "price_path": ["offers", "price"],
+                    "currency_path": ["offers", "priceCurrency"]
+                }
+            } 
+        }
+    }
+}
+
+
+import requests
+from bs4 import BeautifulSoup
+import pandas as pd
+import json
+from datetime import date
+
+today = date.today()
+today = today.strftime("%Y-%m-%d")
+def extract_json_path(data, path):
+    try:
+        for key in path:
+            data = data[key]
+        return data
+    except Exception as e:
+        print(e)
+
+
+def extract_from_soup_general(soup, conf):
+    find_conf = conf.get("find", {})
+    tag_name = find_conf.get("name")
+    attrs = find_conf.get("attrs", {})
+
+    tag = soup.find(tag_name, attrs)
+
+    if not tag:
+        return None
+
+    # Special case for <meta> tags with "content" attribute
+    if tag_name == "meta" and tag.has_attr("content"):
+        return tag["content"]
+
+    # Otherwise, return text content
+    return tag.get_text(strip=True)
+
+
+def extract_from_jsonld(soup, json_path, filter_conf=None):
+    script_tag = soup.find('script', type='application/ld+json')
+    if not script_tag:
+        return None
+
+    try:
+        data = json.loads(script_tag.string)
+        for key in json_path:
+            data = data[key]
+
+        # dulux filtering
+        if filter_conf and isinstance(data, list):
+            keywords = filter_conf.get("name_keywords", [])
+            for item in data:
+                name = item.get("name", "")
+                if all(k in name for k in keywords):
+                    price = extract_json_path(item, filter_conf.get("price_path", []))
+                    currency = extract_json_path(item, filter_conf.get("currency_path", []))
+                    return f"{price} {currency}".strip()
+            return "Price not found"
+        return data
+    except Exception as e:
+        print(e)
+
+
+
+
+def scrape_site(site, conf):
+    results = []
+
+    for url in conf["urls"]:
+        headers = conf.get("headers", {})
+        try:
+            if "api" in conf:
+                
+                method  = conf["api"].get("type", "json")
+
+                if method == "json":
+                    response = requests.get(
+                        url["link"], 
+                        headers=headers,proxies=SCRAPER_CONFIG["proxy"]
+                    )
+                    data = response.json()
+                    price = extract_json_path(data, conf["api"]["price_path"])
+                    if not price:
+                        price = "Price not found"
+
+                elif method == "post_json":
+                    response = requests.post(
+                        url["link"],
+                        headers=headers,
+                        json=url["json_data"],proxies=SCRAPER_CONFIG["proxy"]
+                    )
+                    data = response.json()
+                    price = extract_json_path(data, conf["api"]["price_path"])
+                    if not price:
+                        price = "Price not found"
+
+                else:
+                    price = "Price not found"
+
+            else:
+                response = requests.get(url["link"], headers=conf.get("headers", {}),proxies=SCRAPER_CONFIG["proxy"])
+                soup = BeautifulSoup(response.content, "html.parser")
+
+                if conf["price"]["type"] == "soup":
+                    price = extract_from_soup_general(soup, conf["price"])
+                    if not price:
+                        price = "Price not found"
+                elif conf["price"]["type"] == "json-ld":
+                    price = extract_from_jsonld(
+                        soup,
+                        conf["price"]["json_path"],
+                        conf["price"].get("filter")
+                    )
+                    if not price:
+                        price = "Price not found"
+                else:
+                    price = "Price not found"
+            link_final = url.get("display_link", url["link"]) if site in ["wickes", "toolstation"] else url["link"]
+
+            urlCountry = conf.get("country", "Unknown")
+            results.append({"Country": urlCountry, "Brand":  site, "Description": url["product_description"], "Link": link_final, f"{today}": price})
+
+        except Exception as e:
+            print(e)
+
+    return results
+
+def main():
+    all_dataframes = []
+    
+    columns = ["Country", "Site", "Description", "Link", f"{today}"]
+    df = pd.DataFrame(columns=columns)
+
+    for site, conf in SCRAPER_CONFIG["WEBSITES"].items():
+
+        data = scrape_site(site, conf)
+        df = pd.DataFrame(data)
+        all_dataframes.append(df)
+        print(f"Scraped: {site}")
+
+    combined_df = pd.concat(all_dataframes, ignore_index=True)
+    combined_df.to_excel('all_products_check.xlsx', index=False)
+    print("Done")
+
+
+if __name__ == "__main__":
+    main()
