@@ -35,6 +35,8 @@ for chunk in range(20):
             timestamp = data[i+1]  # The Date is in the 2nd element (index 1)
 
             finalUrl = f"https://www.ecb.europa.eu{url}" if url else None
+            if "html" not in finalUrl:
+                continue
             date = datetime.fromtimestamp(timestamp, timezone.utc).strftime('%Y-%m-%d')
             # Append the extracted data
             master_data.append({
@@ -46,5 +48,5 @@ for chunk in range(20):
         print(f"Failed to fetch data from {url}. Status code: {response.status_code}")
 
 df_master = pd.DataFrame(master_data)
-df_master.to_csv('master_data.csv', index=False)
+df_master.to_csv('master_data3.csv', index=False)
 print(df_master)
