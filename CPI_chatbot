@@ -1,0 +1,119 @@
+# DQ Checks
+code = 'CPIABTW'
+output_file = f'output/FORMATTED/full/merged_{code}.xlsx'
+output_df = pd.read_excel(output_file)
+bot = ChatBot()
+
+def check_reporting_period(df):
+    """
+    Check if each row has data for a consistent number of months (e.g., 15-16 months) prior to the publication date.
+    """
+    results = []
+    for index, row in df.iterrows():
+        publication_date = pd.to_datetime(row['Published Date'])
+        date_columns = [col for col in df.columns if col not in ['RDP TS Code', 'Published Date']]
+        reported_dates = list(df.columns)[2:]
+        
+        # Calculate the number of months between the earliest reported date and the publication date
+        months_difference = (publication_date.year - reported_dates[0].year) * 12 + publication_date.month - reported_dates[0].month
+        
+        if 15 <= months_difference <= 16:
+            results.append((index, "PASS"))
+        else:
+            results.append((index, "FAIL", f"Reported months: {months_difference}"))
+    
+    return results
+
+def check_chronological_order(df):
+    """
+    Ensure that the dates in the columns are in chronological order.
+    """
+    results = []
+    date_columns = [col for col in df.columns if col not in ['RDP TS Code', 'Published Date']]
+    reported_dates = [pd.to_datetime(date) for date in date_columns]
+    
+    if reported_dates == sorted(reported_dates):
+        results.append(("Chronological Order", "PASS"))
+    else:
+        results.append(("Chronological Order", "FAIL", "Dates are not in chronological order"))
+    
+    return results
+
+def check_missing_data(df):
+    """
+    Identify any rows where the expected number of months is missing.
+    """
+    prompt = f"""
+    Act as a data analyst, and detect any outliers. Rule for outlier should be within a row data should not significantly change. Also detect any non-numeric values/characters. Ignore empty cells as they are supposed to be present. Just return PASS or FAIL
+      Data - {df.iloc[:,2:].to_string(index=False, header=True)}
+    """
+    res = bot.chat(prompt)
+   
+    return res
+
+def check_non_numeric(df):
+    """
+    Look for any unusual values in the reported data.
+    """
+    results = []
+    for index, row in df.iterrows():
+        for col in df.columns[3:]:  # Skip TS_CODE and File Date
+            value = row[col]
+            if isinstance(value, str) and (';' in value or value.count('.') > 1 or ':' in value):
+                results.append(("FAIL", f"Non-numeric value in file {row['Raw Excel Name']} column {col}: {value}"))
+            try:
+                float(value)
+            except:
+                results.append(("FAIL", f"Non-numeric value in file {row['Raw Excel Name']} column {col}: {value}"))
+
+    
+    return results
+
+def check_numeric_outliers(df, threshold=3.5):
+    """
+    Detect outliers in all non-null numeric values using the modified Z-score method.
+    Returns a list of (row_index, column, value, z_score) for outliers.
+    """
+
+    results = []
+    # Select only numeric columns (excluding the first two columns)
+    # numeric_cols = df.select_dtypes(include=[np.number]).columns
+    for col in df.columns[2:]:  # Skip TS_CODE and File Date
+        values = df[col].dropna()
+        if len(values) < 2:
+            continue
+        median = np.median(values)
+        mad = np.median(np.abs(values - median))
+        if mad == 0:
+            continue
+        modified_z_scores = 0.6745 * (values - median) / mad
+        outlier_mask = np.abs(modified_z_scores) > threshold
+        for idx, is_outlier in zip(values.index, outlier_mask):
+            if is_outlier:
+                results.append((idx, col, df.at[idx, col], modified_z_scores.loc[idx]))
+    return results
+
+def analyze_excel_file(df):
+    """
+    Analyze the Excel file and perform checks.
+    """
+    # df.iloc[5:8,13] = 99999999
+    # reporting_period_results = check_reporting_period(df)
+    chronological_order_results = check_chronological_order(df)
+    missing_data_results = check_missing_data(df)
+    has_non_numeric_values = check_non_numeric(df)
+    
+    return {
+        # "Reporting Period": reporting_period_results,
+        "Chronological Order": chronological_order_results,
+        "Missing Data": missing_data_results,
+        "Non-Numeric": has_non_numeric_values,
+        "Outliers":check_numeric_outliers(df),
+    }
+
+                                                    
+
+results = analyze_excel_file(output_df)
+for check, result in results.items():
+    print(f"{check} Results:")
+    print(result)
